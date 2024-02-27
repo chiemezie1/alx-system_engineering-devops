@@ -1,120 +1,105 @@
-# 0x04. Loops, conditions and parsing 
+# Loops, conditions and parsing
 
-## Resource
+In this project, I began working loops and conditionals statements in Bash.
 
-- [Loops sample](https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_01.html)
-- [Variable assignment and arithmetic](https://tldp.org/LDP/abs/html/ops.html)
-- [Comparison operators](https://tldp.org/LDP/abs/html/comparison-ops.html)
-- [File test operators](https://tldp.org/LDP/abs/html/fto.html)
-- [Make your scripts portable](https://www.cyberciti.biz/tips/finding-bash-perl-python-portably-using-env.html)
+## Helper File :raised_hands:
 
-## Tasks
+* [apache-access.log](./apache-access.log): An Apache access log file parsed in
+tasks `102` and `103`.
 
-<details>
-<summary><a href="./0-RSA_public_key.pub">0. Create a SSH RSA key pair</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/HkVtBRMg/image.png' border='0' alt='image'/></a><br>
-<ul>
-  <li>Links from screenshot
-  <ul>
-      <li><a href="https://askubuntu.com/questions/61557/how-do-i-set-up-ssh-authentication-keys">Linux and Mac OS users</a></li>
-      <li><a href="https://docs.rackspace.com/support/how-to/generating-rsa-keys-with-ssh-puttygen/">Windows users</a></li>
-      <li><a href="https://www.youtube.com/watch?v=iuqXFC_qIvA&t=46s">data centers</a></li>
-  </ul>
-  </li>
-</ul>
-</details>
+## Tasks :page_with_curl:
 
-<details>
-<summary><a href="./1-for_best_school">1. For Best School loop</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/XYvX60Nr/image.png' border='0' alt='image'/></a>
-</details>
+* **0. Create a SSH RSA key pair**
+  * [0-RSA_public_key.pub](./0-RSA_public_key.pub): A public SSH key uploaded for the
+  purposes of ALX.
 
-<details>
-<summary><a href="./2-while_best_school">2. While Best School loop</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/KcfDJy01/image.png' border='0' alt='image'/></a>
-</details>
+* **1. For Best School loop**
+  * [1-for_best_school](./1-for_best_school): Bash script that displays
+  `Best School` 10 times using a `for` loop.
 
-<details>
-<summary><a href="./3-until_best_school">3. Until Best School loop</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/y8jvVtx4/image.png' border='0' alt='image'/></a>
-</details>
+* **2. While Best School loop**
+  * [2-while_best_school](./2-while_best_school): Bash script that
+  displays `Best School` 10 times using a `while` loop.
 
-<details>
-<summary><a href="./4-if_9_say_hi">4. If 9, say Hi!</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/vBCCykBL/image.png' border='0' alt='image'/></a>
-</details>
+* **3. Until Best School loop**
+  * [3-until_best_school](./3-until_best_school): Bash script that displays
+  `Best School` 10 times using an `until` loop.
 
-<details>
-<summary><a href="./5-4_bad_luck_8_is_your_chance">5. 4 bad luck, 8 is your chance</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/SxMkcYGF/image.png' border='0' alt='image'/></a><br>
-<ul>
-  <li>Links from screenshot
-  <ul>
-      <li><a href="https://freakonomics.com/2006/07/05/lucky-8s-in-china/">8 in the Chinese culture</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/Chinese_numerology#Four">4 in the Chinese culture</a></li>
-  </ul>
-  </li>
-</ul>
-</details>
+* **4. If 9, say Hi!**
+  * [4-if_9_say_hi](./4-if_9_say_hi): Bash script that displays `Best School`
+  10 times using a `while` loop.
+  * For the 9th iteration, displays `Best School` and then `Hi` on a
+  new line.
+  * Uses an `if` statement.
 
-<details>
-<summary><a href="./6-superstitious_numbers">6. Superstitious numbers</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/XvHdRPT0/image.png' border='0' alt='image'/></a>
-</details>
+* **5. 4 bad luck, 8 is your chance**
+  * [5-4_bad_luck_8_is_your_chance](./5-4_bad_luck_8_is_your_chance): Bash script that loops
+  from 1 to 10 using a `while` loop and:
+    * Displays `bad luck` on the 4th iteration.
+    * Displays `good luck` on the 8th iteration.
+    * Displays `Best School` for all other iterations.
+  * Uses the `if`, `elif`, and `else` statements.
 
-<details>
-<summary><a href="./7-clock">7. Clock</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/YqRc5vMR/image.png' border='0' alt='image'/></a>
-</details>
+* **6. Superstitious numbers**
+  * [6-superstitious_numbers](./6-superstitious_numbers): Bash script that displays
+  numbers from `1` to `20` using a `while` loop and:
+    * Displays `4` and then `bad luck from China` for the 4th iteration.
+    * Displays `9` and then `bad luck from Japan` for the 9th iteration.
+    * Displays `17` and then `bad luck from Italy` for the 17th iteration.
+  * Uses a `case` statement.
 
-<details>
-<summary><a href="./8-for_ls">8. For ls</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/wjzrjgTv/image.png' border='0' alt='image'/></a>
-</details>
+* **7. Clock**
+  * [7-clock](./7-clock): Bash script that displays the time for 12 hours and 59 minutes.
+    * Displays hours from `0` to `12`.
+    * Displays minutes from `0` to `59`.
 
-<details>
-<summary><a href="./9-to_file_or_not_to_file">9. To file, or not to file</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/RFwsBY5f/image.png' border='0' alt='image'/></a>
-</details>
+* **8. For ls**
+  * [8-for_ls](./8-for_ls): Bash script that displays the contents of the current directory
+  in list format.
+  * Only the part of the name after the first dash is displayed.
 
-<details>
-<summary><a href="./10-fizzbuzz">10. FizzBuzz</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/85bsJLq3/image.png' border='0' alt='image'/></a>
-</details>
+* **9. To file, or not to file**
+  * [9-to_file_or_not_to_file](./9-to_file_or_not_to_file): Bash script that gives information
+  about the `bestschool` file.
+    * If the file exists, displays: `school file exists`.
+    * If the file does not exist, displays: `school file does not exist`.
+    * If the file exists and is empty, displays: `school file is empty`.
+    * If the file exists and is not empty, displays: `school file is not
+    empty`.
+    * If the file exists and is a regular file, displays: `school file
+    is a regular file`.
+    * Otherwise, displays nothing.
 
-<details>
-<summary><a href="./100-read_and_cut">11. Read and cut</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/FHQyLVqF/image.png' border='0' alt='image'/></a>
-</details>
+* **10. FizzBuzz**
+  * [10-fizzbuzz](./10-fizzbuzz): Bash script that displays numbers from
+  `1` to `100` in list format.
+  * Displays `FizzBuzz` when the number is a multiple of 3 and 5.
+  * Displays `Fizz` when the number is a multiple of 3.
+  * Displays `Buzz` when the number is a multiple of 5.
+  * Otherwise, displays the number.
 
-<details>
-<summary><a href="./101-tell_the_story_of_passwd">12. Tell the story of passwd</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/g0vNZG3x/image.png' border='0' alt='image'/></a>
-<ul>
-  <li>Links from screenshot
-  <ul>
-      <li><a href="https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/">Understanding /etc/passwd</a></li>
-      <li><a href="https://tldp.org/LDP/abs/html/internalvariables.html">IFS (internal field separator)</a></li>
-  </ul>
-  </li>
-</ul>
-</details>
+* **11. Read and cut**
+  * [100-read_and_cut](./100-read_and_cut): Bash script that displays the contents of the
+  `/etc/passwd` file.
+  * Displays only the username, user id, and user home directory path for each line.
 
-<details>
-<summary><a href="./102-lets_parse_apache_logs">13. Let's parse Apache logs</a></summary><br>
-<a href='https://postimg.cc/rDm2Zg6H' target='_blank'><img src='https://i.postimg.cc/P5bfxFSd/image.png' border='0' alt='image'/></a>
-<ul>
-  <li>Links from screenshot
-  <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server">Apache HTTP Server</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status codes</a></li>
-      <li><a href="https://www.the-art-of-web.com/system/logs/">System: Analyzing Apache log Files</a></li>
-  </ul>
-  </li>
-</ul>
-</details>
+* **12. Tell the story of passwd**
+  * [101-tell_the_story_of_passwd](./101-tell_the_story_of_passwd): Bash script that
+  tells stories based on the contents of the `/etc/passwd` file.
+  * Displays content from the file in the format: `The user USERNAME is part of
+  the GROUP_ID gang, lives in HOME_DIRECTORY and rides COMMAND/SHELL. USER ID's
+  place is protected by the passcode PASSWORD, more info about the user here: USER ID INFO`.
 
-<details>
-<summary><a href="./103-dig_the-data">14. Dig the data</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/T2WBc5gs/image.png' border='0' alt='image'/></a>
-</details>
+* **13. Let's parse Apache logs**
+  * [102-lets_parse_apache_logs](./102-lets_parse_apache_logs): Bash script that displays
+  the visitor IP along with the HTTP status code for logs read from an Apache log access file.
+  * Displays content in the format `IP HTTP_CODE`.
+  * Uses `awk`.
+
+* **14. Dig the data**
+  * [103-dig_the-data](./103-dig_the-data): Bash script that reads content from an
+  Apace log access file and groups visitors by IP and HTTP status code.
+  * Displays the grouped number of visitors to an IP address in the format
+  `OCCURRENCE_NUMBER IP HTTP_CODE`.
+  * Logs are grouped in order of greatest to lowest number of visitors.
+  * Uses `awk`.
