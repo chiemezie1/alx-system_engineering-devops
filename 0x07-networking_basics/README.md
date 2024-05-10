@@ -89,4 +89,58 @@ Whether an application uses TCP or UDP is up to its developer, and the choice de
 
 Unless you're a network administrator or software developer, this shouldn't doesn't affect you too much. If you're configuring your router or firewall software and you're not sure whether an application uses TCP or UDP, you can generally select the "Both" option to have your router or firewall apply the same rule to both TCP and UDP traffic.
 
-##
+
+## netstat
+**`netstat`** is a command-line tool used to display network connections, routing tables, interface statistics, masquerade connections, and multicast memberships. It provides information about various network connections and network-related statistics.
+
+Here's a basic usage of **`netstat`**:
+
+```bash
+netstat [options]
+```
+
+Some common options include:
+
+- **`a, --all`**: Display all sockets.
+- **`t, --tcp`**: Display TCP connections.
+- **`u, --udp`**: Display UDP connections.
+- **`n, --numeric`**: Show numerical addresses instead of resolving hostnames.
+- **`p, --program`**: Show the PID and name of the program to which each socket belongs.
+- **`l, --listening`**: Show only listening sockets.
+- **`r, --route`**: Display the kernel routing table.
+- **`s, --statistics`**: Show network statistics.
+
+For example, to display all TCP connections with numerical addresses and port numbers, you can use:
+
+```bash
+netstat -t -n
+```
+
+## Internet Control Message Protocol (ICMP) and Ping 
+The ICMP is a protocol in the Internet protocol suite. It is used by network devices, to check if other network devices are available on the network. The command ping uses ICMP to make sure that a network device remains online or to troubleshoot issues on the network.
+
+**`ping`** is a network utility used to test the reachability of a host on an Internet Protocol (IP) network. It sends ICMP Echo Request packets to the target host and waits for ICMP Echo Reply packets. The time it takes for the request packet to reach the target host and for the reply packet to return is measured, providing information about the round-trip time (RTT) between the source and destination.
+
+Here's a basic usage of the **`ping`** command:
+
+```bash
+ping [options] destination
+```
+
+Where **`destination`** can be an IP address or a domain name.
+
+Some common options include:
+
+- **`c count`**: Send **`count`** number of packets and then stop.
+- **`i interval`**: Set the interval between sending each packet (in seconds).
+- **`s size`**: Set the size of the packets (in bytes).
+- **`t timeout`**: Set the timeout (in seconds) for waiting for a response.
+- **`q`**: Quiet output. Only display summary statistics.
+
+For example, to send 5 ICMP Echo Request packets to the host **`google.com`**, you can use:
+
+```bash
+ping -c 5 google.com
+```
+
+This will send 5 packets and then stop, displaying statistics about the packets sent and received.
