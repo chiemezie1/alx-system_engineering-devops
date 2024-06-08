@@ -84,7 +84,7 @@ The project is divided into four tasks, each requiring the design of a specific 
         2. Between the load balancer and the web/application servers to isolate internal traffic.
         3. Between the web/application servers and the database server to secure the database layer.
     - **SSL Certificate**: An SSL certificate is added to serve the website over HTTPS, ensuring encrypted communication between the user's browser and the server. This protects data in transit from eavesdropping and tampering.
-    - **3 Monitoring Clients**: Monitoring clients are installed on each server (web server, application server, and database server) to collect performance metrics and log data. This enables proactive monitoring and alerting for any potential issues.
+    - **3 Monitoring Clients**: Monitoring clients are installed on each server (Load balancer, application server) to collect performance metrics and log data. This enables proactive monitoring and alerting for any potential issues.
 - **What are firewalls for:**
     - Firewalls are security devices or software that monitor and control incoming and outgoing network traffic based on predefined security rules. They help to:
         - Block unauthorized access.
@@ -127,8 +127,41 @@ The project is divided into four tasks, each requiring the design of a specific 
 [Diagram URL](https://imgur.com/your_image_link)
 
 **Explanation**
+### Application Server vs. Web Server
+***Web Server (Nginx):***
+Handles HTTP/HTTPS requests from users.
+Serves static content (e.g., HTML, CSS, JavaScript, images).
+Forwards dynamic content requests to the application server.
 
-## Example Submission for Task 0
+***Application Server:***
+Processes business logic and dynamic content.
+Interacts with the database to fetch and store data.
+Generates dynamic responses based on user inputs and interactions.
+
+- **why you are adding**
+    - **Additional Server**:
+        - Adds redundancy and capacity to handle more traffic and provide fault tolerance.
+    - **Load Balancer Cluster (HAproxy)**:
+        Distributes incoming traffic across multiple servers.
+        - Ensures high availability by clustering multiple load balancers.
+        - Prevents any single point of failure at the load balancer level.
+    - **Split Components**:
+        - **Web Servers**:
+            - Dedicated to handling HTTP/HTTPS requests.
+            - Serve static content efficiently.
+        - **Application Servers**:
+            - Handle business logic and dynamic content generation.
+            - Interact with the database to retrieve and store data.
+        - **Database Servers**:
+            - Primary server handles all write operations.
+            - Replica servers handle read operations, ensuring high availability and scalability.
+
+### Benefits of Splitting Components:
+
+- **Resource Optimization**: Each server type can be optimized for its specific workload, leading to better performance and resource utilization.
+- **Scalability**: Components can be scaled independently based on demand (e.g., adding more web servers to handle increased traffic).
+- **Fault Isolation**: Issues in one component (e.g., the web server) do not affect the others (e.g., the database server).
+- **Maintenance and Updates**: Each component can be updated or maintained without impacting the entire system.
 
 
 This project is part of the ALX System Engineering DevOps track.
