@@ -1,5 +1,4 @@
-# A puppet file that installs Flask from pip3
-# Define a package resource
+# A Puppet manifest to install Flask version 2.1.0 using pip3
 
 package { 'Flask':
   ensure   => '2.1.0',
