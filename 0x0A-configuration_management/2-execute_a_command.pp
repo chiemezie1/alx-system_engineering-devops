@@ -1,6 +1,5 @@
-# Kills a process name Killmenow
+# kills a process named 'killmenow'
 
-exec { 'killmenow':
-  command => 'killmenow',
-  unless  => 'ps aux | grep killmenow | grep -v grep',
+exec { 'pkill':
+  command => '/usr/bin/pkill -9 killmenow'
 }
