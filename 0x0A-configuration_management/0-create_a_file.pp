@@ -1,7 +1,10 @@
-file { '/tmp/0-create_a_file':
-    ensure  => file,
-    content => 'I love Puppet',
-    owner   =. 'www-data',
-    group   =. 'www-data',
-    mode    =. '0644',
+# Create a Puppet file in /tmp
+# Define a file resource
+
+file { '/tmp/school':
+  ensure  => 'present',
+  content => 'I love Puppet',
+  mode    => '0744',
+  owner   => 'www-data',
+  group   => 'www-data',
 }
