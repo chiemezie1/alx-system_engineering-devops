@@ -1,32 +1,26 @@
 # Ensure the SSH configuration directory exists
-file { '~/.ssh':
-  ensure => 'directory',
-  mode   => '0700',
-  owner  => $USER,
-  group  => $USER,
+exec { 'create_ssh_directory':
+  command => 'mkdir -p ~/.ssh && chmod 700 ~/.ssh',
+  unless  => 'test -d ~/.ssh',
 }
 
 # Ensure the SSH configuration file exists
-file { '~/.ssh/config':
-  ensure  => 'file',
-  mode    => '0600',
-  owner   => $USER,
-  group   => $USER,
-  require => File['~/.ssh'],
+exec { 'create_ssh_config_file':
+  command => 'touch ~/.ssh/config && chmod 600 ~/.ssh/config',
+  unless  => 'test -f ~/.ssh/config',
+  require => Exec['create_ssh_directory'],
 }
 
 # Configure the SSH client to use the specified private key
-file_line { 'Declare identity file':
-  path  => '~/.ssh/config',
-  line  => 'IdentityFile ~/.ssh/school',
-  match => '^IdentityFile',
-  require => File['~/.ssh/config'],
+exec { 'declare_identity_file':
+  command => 'echo "IdentityFile ~/.ssh/school" >> ~/.ssh/config',
+  unless  => 'grep -q "^IdentityFile ~/.ssh/school" ~/.ssh/config',
+  require => Exec['create_ssh_config_file'],
 }
 
 # Disable password authentication
-file_line { 'Turn off passwd auth':
-  path  => '~/.ssh/config',
-  line  => 'PasswordAuthentication no',
-  match => '^PasswordAuthentication',
-  require => File['~/.ssh/config'],
+exec { 'turn_off_password_auth':
+  command => 'echo "PasswordAuthentication no" >> ~/.ssh/config',
+  unless  => 'grep -q "^PasswordAuthentication no" ~/.ssh/config',
+  require => Exec['create_ssh_config_file'],
 }
