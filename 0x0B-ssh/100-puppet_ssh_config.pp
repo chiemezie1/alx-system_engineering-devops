@@ -1,5 +1,12 @@
 # File: 100-puppet_ssh_config.pp
 
+# Ensure SSH client config directory exists
+file { '/home/ubuntu/.ssh':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+}
+
 # Ensure SSH client config file exists
 file { '/home/ubuntu/.ssh/config':
   ensure => file,
