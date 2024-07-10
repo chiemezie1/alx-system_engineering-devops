@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-# installs nginx and changes default html file
-apt-get -y update
-apt-get -y install nginx
-echo 'Hello World!' > /var/www/html/index.html
-# configure /redirect_me to another page
-sed -i "/server_name _;/ a\\\trewrite ^/redirect_me  permanent;" /etc/nginx/sites-available/default
-service nginx start
+# This script configures Nginx to redirect /redirect_me to another page
 
+# Ensure Nginx is installed
+apt-get update
+apt-get install -y nginx
+echo 'Hello World!' > /var/www/html/index.html
+
+# Insert the redirection into the Nginx default site configuration
+sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://github.com/chiemezie1 permanent;' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+service nginx restart
