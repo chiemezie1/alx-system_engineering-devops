@@ -7,7 +7,7 @@ apt-get install -y nginx
 echo 'Hello World!' > /var/www/html/index.html
 
 # Insert the redirection into the Nginx default site configuration
-sed -i '/server_name _;/a \\n    location /redirect_me {\n        return 301 https://github.com/chiemezie1;\n    }\n' /etc/nginx/sites-available/default
+sed -i "/server_name_;/ a \\\trewrite ^/redirect_me$ https://github.com/chiemezie1 permanent;" /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
 service nginx restart
