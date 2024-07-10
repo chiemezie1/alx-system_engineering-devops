@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
-# This script configures Nginx to redirect /redirect_me to another page
 
-# Ensure Nginx is installed
-apt-get update
-apt-get install -y nginx
+# Ensure the script is run with root privileges
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
+# Update package list and install Nginx
+apt-get -y update
+apt-get -y install nginx
+
+# Change default HTML file
 echo 'Hello World!' > /var/www/html/index.html
 
-# Insert the redirection into the Nginx default site configuration
-sed -i '/server_name _;/a \\n    location /redirect_me {\n        return 301 https://github.com/chiemezie1;\n    }\n' /etc/nginx/sites-available/default
+# Define the new string to be inserted
+new_string="\n\tlocation /redirect_me {\n\t\treturn 301 https://github.com/chiemezie1;\n\t}"
 
-# Restart Nginx to apply the changes
+# Insert the new string after the 'server_name _;' line
+sed -i "s/server_name _;/server_name _;${new_string}/" /etc/nginx/sites-available/default
+
+# Restart Nginx service to apply changes
 service nginx restart
 
 # Verify the redirection
