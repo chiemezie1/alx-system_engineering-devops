@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# This script configures Nginx to redirect /redirect_me to another page
+
+# Ensure Nginx is installed
+apt-get update
+apt-get install -y nginx
+echo 'Hello World!' > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/c_404.html
+
+# Insert the redirection into the Nginx default site configuration
+sed -i "/server_name_;/ a \\\trewrite ^/redirect_me$ https://github.com/chiemezie1 permanent;" /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+service nginx restart
