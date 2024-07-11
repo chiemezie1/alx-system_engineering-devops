@@ -5,10 +5,13 @@
 apt-get update
 apt-get install -y nginx
 echo 'Hello World!' > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/c_404.html
 
 # Insert the redirection into the Nginx default site configuration
 sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://github.com/chiemezie1 permanent;' /etc/nginx/sites-available/default
+
+# Insert the error page into the Nginx default site configuration
+echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
+sed -i "/redirect_me/ a\\\terror_page 404 /custom_404.html;" /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
 service nginx restart
