@@ -1,62 +1,42 @@
-# A Puppet module to install and configure Nginx web server
+# configures server using puppet
 
-# Ensure Nginx is installed
-package { 'nginx':
-  ensure => installed,
+# Update the package list
+exec { 'apt-get update':
+  command => '/usr/bin/env apt-get -y update',
 }
 
-# Ensure Nginx service is enabled and running
-service { 'nginx':
-  ensure     => running,
-  enable     => true,
-  require    => Package['nginx'],
+# Install Nginx
+exec { 'apt-get install nginx':
+  command => '/usr/bin/env apt-get -y install nginx',
+  require => Exec['apt-get update'],
 }
 
-# Define the content of the index.html file
-file { '/var/www/html/index.html':
-  ensure  => file,
-  content => 'Hello World!',
-  require => Package['nginx'],
+# Create the Hello World index file
+exec { 'create index.html':
+  command => '/usr/bin/env echo "Hello World!" > /var/www/html/index.nginx-debian.html',
+  require => Exec['apt-get install nginx'],
 }
 
-# Define the content of the custom 404 error page
-file { '/var/www/html/custom_404.html':
-  ensure  => file,
-  content => "Ceci n'est pas une page",
-  require => Package['nginx'],
+# Insert the redirect configuration into the Nginx default site configuration
+exec { 'configure redirect':
+  command => '/usr/bin/env sed -i "/server_name _;/ a\\location /redirect_me { return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; }" /etc/nginx/sites-available/default',
+  require => Exec['create index.html'],
 }
 
-# Create an Nginx configuration file
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => template('nginx/default.erb'),
-  require => [Package['nginx'], File['/var/www/html/index.html'], File['/var/www/html/custom_404.html']],
-  notify  => Service['nginx'],
+# Insert the custom 404 error page configuration into the Nginx default site configuration
+exec { 'configure 404':
+  command => '/usr/bin/env sed -i "/server_name _;/ a\\error_page 404 /custom_404.html;" /etc/nginx/sites-available/default',
+  require => Exec['configure redirect'],
 }
 
-# Create the template for the Nginx configuration
-file { '/etc/puppetlabs/code/environments/production/modules/nginx/templates/default.erb':
-  ensure  => file,
-  content => '
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    location /redirect_me {
-        rewrite ^/redirect_me https://github.com/chiemezie1 permanent;
-    }
-
-    error_page 404 /custom_404.html;
+# Create the custom 404 error page file
+exec { 'create 404.html':
+  command => '/usr/bin/env echo "Ceci n\'est pas une page" > /var/www/html/custom_404.html',
+  require => Exec['configure 404'],
 }
-  ',
-  require => Package['nginx'],
+
+# Restart Nginx to apply the new configuration
+exec { 'restart nginx':
+  command => '/usr/bin/env systemctl restart nginx',
+  require => Exec['create 404.html'],
 }
