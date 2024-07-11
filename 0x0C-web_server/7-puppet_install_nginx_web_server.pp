@@ -1,8 +1,4 @@
-# Nginx Puppet configuration to:
-# - Install and configure Nginx
-# - Set up a 301 redirect for /redirect_me
-# - Return "Hello World!" at the root
-# - Configure a custom 404 page
+# Install and configure Nginx with Puppet
 
 # Ensure the package 'nginx' is installed
 package { 'nginx':
@@ -18,7 +14,7 @@ service { 'nginx':
 }
 
 # Create the index.html file with "Hello World!" content
-file { '/var/www/html/index.html':
+file { '/var/www/html/index.nginx-debian.html':
   ensure  => file,
   content => 'Hello World!',
   require => Package['nginx'],
@@ -34,7 +30,16 @@ file { '/var/www/html/custom_404.html':
 # Update the Nginx configuration file to set up the redirect and custom 404 page
 file { '/etc/nginx/sites-available/default':
   ensure  => file,
-  content => template('server {
+  content => template('nginx/default.erb'),
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+}
+
+# Template for the Nginx configuration file
+file { '/etc/puppetlabs/code/environments/production/modules/nginx/templates/default.erb':
+  ensure  => file,
+  content => '
+server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
@@ -44,7 +49,7 @@ file { '/etc/nginx/sites-available/default':
     server_name _;
 
     location /redirect_me {
-        return 301 https://github.com/chiemezie1 permanent;
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 
     error_page 404 /custom_404.html;
@@ -52,7 +57,7 @@ file { '/etc/nginx/sites-available/default':
     location / {
         try_files $uri $uri/ =404;
     }
-  }'),
+}
+  ',
   require => Package['nginx'],
-  notify  => Service['nginx'],
 }
