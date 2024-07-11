@@ -5,10 +5,6 @@ sudo apt update
 sudo apt install -y nginx
 
 # Add custom header configuration to the default server block
-sudo sed -i '/location \/ {/a \        add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+sed -i "/server_name _;/ a\\\tadd_header X-Served-By \"\$HOSTNAME\";" /etc/nginx/sites-available/default
 
-# Restart Nginx to apply changes
-sudo systemctl restart nginx
-
-# Confirm Nginx is running and the custom header is set
-sudo systemctl status nginx
+service nginx restart
