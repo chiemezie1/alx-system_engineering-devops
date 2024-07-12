@@ -8,7 +8,7 @@ exec { '/usr/bin/env apt-get -y update' : }
   ensure => installed,
 }
 -> file { '/var/www/html/index.html' :
-  content => 'Holberton School!',
+  content => 'Hello, World!',
 }
 -> file_line { 'add header':
   ensure => present,
