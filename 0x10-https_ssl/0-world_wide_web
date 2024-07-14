@@ -1,12 +1,8 @@
 #!/bin/bash
 # A Bash script that will display information about subdomains
-
-domain="$1"
-subdomain="$2"
-
-if [ -z "$2" ]
-then
-    dig "$1" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}'
+if [ $# -eq 1 ]; then
+	queries="www.$1 lb-01.$1 web-01.$1 web-02.$1"
 else
-    dig "$2.$1" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}'
+	queries="$2.$1"
 fi
+dig $queries | awk '/ANSWER SECTION:/ { getline; split($1, a, "."); print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
