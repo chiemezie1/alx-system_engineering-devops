@@ -1,0 +1,12 @@
+#!/bin/bash
+# A Bash script that will display information about subdomains
+
+domain="$1"
+subdomain="$2"
+
+if [ -z "$2" ]
+then
+    dig "$1" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}'
+else
+    dig "$2.$1" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}'
+fi
