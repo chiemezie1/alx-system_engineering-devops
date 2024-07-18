@@ -1,123 +1,108 @@
-Do you still remember the last time you typed www.google.com and clicked enter? In what may appear to be no time, here you are on the home page of Google. But wait, have you ever thought about what happened behind the scenes to get you to that page? My first reassurance to you, the reader, is that this material is not too hard to understand. You are smarter than this, so don't be afraid; all terms will be explained.
+Do you still remember the last time you typed www.google.com and clicked enter? In what may appear to be no time, here you are on the home page of Google. But wait, have you ever thought about what happened behind the scenes to get you to that page? My first reassurance to you, the reader, is that this material is not too hard to understand. You are smarter than this, so don’t be afraid; all terms will be explained.
 
-Last Friday, you asked your workmate where he lives, and he said, "100 degrees north and 2837 degrees south." I guess you thought he was mad, right? At least you were expecting something like "No 3 Zik Avenue Plaza, Independence Layout, Enugu." But unfortunately, your co-worker was wrong; the address he gave was right. The point is that humans are good with numbers, but that is not the case with computers. In fact, not only are computers good with numbers, but it is the only language they know: 1's and 0's.
+Last Friday, you asked your workmate where he lives, and he said, “51.5074° N, 0.1278° W.” I guess you thought he was mad, right? At least you were expecting something like “No 3 Zik Avenue Plaza, Independence Layout, Enugu.” But unfortunately, your co-worker was not wrong; the address he gave was right. The point is that humans are not good with numbers, but that is not the case with computers. In fact, not only are computers good with numbers, but it is the only language they know: 1’s and 0's.
 
-So how does this fit into our discussion? Well, think about the websites you know: google.com, facebook.com, x.com, amazon.com, udemy.com, medium.com, yahoo.com, coursera.com—the list can go on (I'm sure you can list up to 50 websites). How many of these sites do you think you could remember if they were in digit format? But actually, they are in digit format. Like I said, computers only understand numbers. So how do computers translate our google.com into 216.58.217.14 and take us to Google's home page? The secret is in what we call DNS.
+So how does this fit into our discussion? Well, think about the websites you know: google.com, facebook.com, x.com, amazon.com, udemy.com, medium.com, yahoo.com, coursera.com — the list can go on (I’m sure you can list up to 50 websites). How many of these sites do you think you could remember if they were in digit format? But actually, they are in digit format. As I said, computers only understand numbers. So how do computers translate our google.com into 216.58.217.14 and take us to Google’s home page? The secret is in what we call DNS.
 
 The Domain Name System (DNS) DNS.
 
 So you input the address in the search bar. The browser does its normal URL parsing and validation to determine whether its components (protocol, domain, path, etc.) are valid.
 
-Once valid, the first place the system checks is a file called the "hosts file." This is a plain text file on your computer that maps domain names to corresponding IP addresses. You can see it as a phone book. This file is updated manually by users. For example, you might add an entry like 216.58.217.14 google.com to direct google.com. But I doubt you have done that, so we move to the next step.
+Once valid, the first place the system checks is a file called the “hosts file.” This is a plain text file on your computer that maps domain names to corresponding IP addresses. You can see it as a phone book. This file is updated manually by users. For example, you might add an entry like 216.58.217.14 google.com to direct google.com. But I doubt you have done that, so we move to the next step.
 
 Since the hosts file does not have the entry, the browser will then check its own cache to see if it has recently looked up the domain name to check for the IP address. If it is still not found, it asks the operating system (OS). The OS keeps track of recent DNS lookups.
 
-If none of them have cached the IP address (you are likely visiting the site for the first time), the request is sent to a recursive DNS server (AKA recursive resolver), often managed by the user's internet service provider (ISP).
+If none of them have cached the IP address (you are likely visiting the site for the first time), the request is sent to a recursive DNS server (AKA recursive resolver), often managed by the user’s internet service provider (ISP).
 
-Recursive DNS Server:
-The recursive resolver checks its own cache. If it has the IP address, it returns it to the browser. But when not found, it starts querying other DNS servers in a specific order. Now you will find out why "recursive" is attached to the name.
+Recursive DNS Server: The recursive resolver checks its own cache. If it has the IP address, it returns it to the browser. But when not found, it starts querying other DNS servers in a specific order. Now you will find out why “recursive” is attached to the name.
 
-Unlike other servers that just tell us "I don't have it," this server, if it doesn't have it, responds with the address of the top-level domain (TLD) name servers (.com, .net, .org, etc.). With that response, we visit the TLD name servers. These servers build on what we know; they respond with the address of the "authoritative" name servers for the specific domain (e.g., google.com, amazon.com, facebook.com). And then our final bus stop, the authoritative name servers. These servers provide the final IP address for the domain name.
+Unlike other servers that just tell us “I don’t have it,” this server, if it doesn’t have it, responds with the address of the top-level domain (TLD) name servers (.com, .net, .org, etc.). With that response, we visit the TLD name servers. These servers build on what we know; they respond with the address of the “authoritative” name servers for the specific domain (e.g., google.com, amazon.com, facebook.com). And then our final bus stop, the authoritative name servers. These servers provide the final IP address for the domain name.
 
-But it doesn't end there. The recursive DNS server caches the IP address it has received from the authoritative name server. This way, any future requests for the same domain can be resolved more quickly without querying other servers.
+But it doesn’t end there. The recursive DNS server caches the IP address it has received from the authoritative name server. This way, any future requests for the same domain can be resolved more quickly without querying other servers.
 
 If the authoritative server, on the other hand, cannot find the requested information, it returns an error message indicating that the domain does not exist.
 
 This is the process by which the DNS translates a human-readable domain name into a machine-readable IP address. But that’s not the end. We just got the IP address. Once the domain name (e.g., google.com) is resolved to an IP address by DNS, your computer knows where to send the data. Next is communication with the server.
 
-Establishing a TCP/IP Connection
-Initiating a TCP Connection
+Establishing a TCP/IP ConnectionInitiating a TCP Connection
 
 Now, how would two different computers know how to communicate with each other and which language (as it were) to speak with each other? Enter the Transmission Control Protocol (TCP). It is a communications standard that enables application programs and computing devices to exchange messages over a network. This process is called the three-way handshake. Here is how the process goes:
 
-Three-Way Handshake
-Step 1: SYN (Synchronize): Your computer (the client) sends a TCP packet (a small unit of data that is transmitted over a network) with the SYN (synchronize) flag set to the server. This packet contains a sequence number used to initiate the connection. Note: TCP flags are a set of control bits within the TCP header that indicate specific states or control messages for managing TCP connections. It’s like your computer is saying, "Hello, I'd like to start a conversation, and here's my sequence number."
+Three-Way HandshakeStep 1: SYN (Synchronize): Your computer (the client) sends a TCP packet (a small unit of data that is transmitted over a network) with the SYN (synchronize) flag set to the server. This packet contains a sequence number used to initiate the connection. Note: TCP flags are a set of control bits within the TCP header that indicate specific states or control messages for managing TCP connections. It’s like your computer is saying, “Hello, I’d like to start a conversation, and here’s my sequence number.”
 
-Step 2: SYN-ACK (Synchronize-Acknowledge): The server then responds with its own TCP packet that has both the SYN and ACK (acknowledge) flags set. This packet includes the server's sequence number and an acknowledgment of the client's sequence number. Now we can say the server replies, "Hello, I received your message, and here's my sequence number."
+Step 2: SYN-ACK (Synchronize-Acknowledge): The server then responds with its own TCP packet that has both the SYN and ACK (acknowledge) flags set. This packet includes the server’s sequence number and an acknowledgment of the client’s sequence number. Now we can say the server replies, “Hello, I received your message, and here’s my sequence number.”
 
-Step 3: ACK (Acknowledge): The client responds with an ACK packet, acknowledging the server's sequence number. Your computer says, "Great, I received your sequence number, let's start communicating."
+Step 3: ACK (Acknowledge): The client responds with an ACK packet, acknowledging the server’s sequence number. Your computer says, “Great, I received your sequence number, let’s start communicating.”
 
-Data Transmission:
-With the connection established, data can now be exchanged between the client and server, right? Yes, it can.
+Data Transmission: With the connection established, data can now be exchanged between the client and server, right? Yes, it can.
 
-In communication, data is often broken down into smaller chunks called packets. Each packet includes a header with some metadata (e.g., the source, the destination IP addresses and sequence numbers) and the actual data. Each packet is sent over the internet, taking different routes to reach the destination. There are routers along the way that help direct the packets to their destination based on the IP addresses. For each packet received, the receiver sends an acknowledgment (ACK) back to the sender, confirming receipt. If the sender does not receive an ACK within a certain time period, it will retransmit the packet again. Smart move, right?
+In communication, data is often broken down into smaller chunks called packets. Each packet includes a header with some metadata (e.g., the source, the destination IP addresses, and sequence numbers) and the actual data. Each packet is sent over the internet, taking different routes to reach the destination. There are routers along the way that help direct the packets to their destination based on the IP addresses. For each packet received, the receiver sends an acknowledgment (ACK) back to the sender, confirming receipt. If the sender does not receive an ACK within a certain period, it will retransmit the packet again. Smart move, right?
 
 Here is the work of the sequence numbers in the header of each packet: TCP uses sequence numbers to ensure that packets are reassembled in the correct order at the destination since the packets can arrive out of order.
 
 One more thing you need to know: TCP includes error-checking features. If it detects any corruption in the packets during transmission, the corrupted packet is discarded and retransmitted. Now you have the file, right? We close the connection this time using a four-step process.
 
-Connection Termination:
-Step 1: FIN (Finish): The client sends a TCP packet with the FIN flag set to the server, indicating that it wants to close the connection.
-Step 2: ACK: The server acknowledges the FIN packet.
-Step 3: FIN: The server sends its own FIN packet to the client.
-Step 4: ACK: The client acknowledges the server's FIN packet, and the connection is closed.
+Connection Termination: Step 1: FIN (Finish): The client sends a TCP packet with the FIN flag set to the server, indicating that it wants to close the connection. Step 2: ACK: The server acknowledges the FIN packet. Step 3: FIN: The server sends its own FIN packet to the client. Step 4: ACK: The client acknowledges the server’s FIN packet, and the connection is closed.
 
-But is that all to the communication, you may wonder? If you have noticed, there is no security in this communication. That means a bad actor might target the Google server (cyber attacks) or someone might gain unauthorized access. On the other hand, since the packets are traveling over a route sent over the internet, anyone intercepting them can get users' private information (like your credit card information used on Amazon or the unreplied messages to your crush). That brings us to two more things: Firewall and HTTPS/SSL.
+But is that all to the communication? If you have noticed, there is no security in this communication. That means a bad actor might target the Google server (cyber attacks) or someone might gain unauthorized access. On the other hand, since the packets are traveling over a route sent over the internet, anyone intercepting them can get users’ private information (like your credit card information, or the unreplied messages to your crush). That brings us to two more things: Firewall and HTTPS/SSL.
 
-FIREWALL
-The term firewall was originally used to refer to a wall that confines fire within a line of adjacent buildings. However, in computing, a firewall refers to a network security device that monitors and controls incoming and outgoing network traffic based on a set of security rules. It's much like a barrier (fire and other buildings) between a trusted internal network and untrusted external networks.
+FIREWALL The term firewall was originally used to refer to a wall that confines fire within a line of adjacent buildings. However, in computing, a firewall refers to a network security device that monitors and controls incoming and outgoing network traffic based on a set of security rules. It’s much like a barrier (fire and other buildings) between a trusted internal network and untrusted external networks.
 
-The primary purpose of a firewall is to prevent unauthorized access and protect the network from cyber attacks. Here is how it works:
-For each packet of data that attempts to enter or leave the network, the firewall compares it against a set of predefined security rules. These rules can be based on various criteria such as source and destination IP addresses, port numbers, and protocols. If a packet meets the criteria set by the rules, it will be allowed to pass through. If the request is deemed unsafe or unauthorized, the firewall blocks it.
+The primary purpose of a firewall is to prevent unauthorized access and protect the network from cyber-attacks. Here is how it works: For each packet of data that attempts to enter or leave the network, the firewall compares it against a set of predefined security rules. These rules can be based on various criteria such as source and destination IP addresses, port numbers, and protocols. If a packet meets the criteria set by the rules, it will be allowed to pass through. If the request is deemed unsafe or unauthorized, the firewall blocks it.
 
-HTTPS/SSL
-HTTPS is an extension of HTTP, so let's look at HTTP first. It stands for HyperText Transfer Protocol. Whenever you hear the term protocol, just think of it as a set of rules. So, it’s a set of rules by which a type of text known as hypertext is transmitted. Now, HTTPS stands for HyperText Transfer Protocol Secure. The only addition here is "Secure." This protocol uses SSL/TLS to encrypt data for secure communication over a computer network.
+HTTPS/SSL HTTPS is an extension of HTTP, so let’s look at HTTP first. It stands for HyperText Transfer Protocol. Whenever you hear the term protocol, just think of it as a set of rules. So, it’s a set of rules by which a type of text known as hypertext is transmitted. Now, HTTPS stands for HyperText Transfer Protocol Secure. The only addition here is “Secure.” This protocol uses SSL/TLS to encrypt data for secure communication over a computer network.
 
-SSL/TLS—haven't heard of that before, right? It stands for Secure Sockets Layer and Transport Layer Security. They are cryptographic protocols that provide secure communication by encrypting the data that is to be transmitted between a client (e.g., a browser) and a server. TLS is the successor to SSL and is more secure and efficient.
+SSL/TLS — haven’t heard of that before, right? It stands for Secure Sockets Layer and Transport Layer Security. They are cryptographic protocols that provide secure communication by encrypting the data that is to be transmitted between a client (e.g., a browser) and a server. TLS is the successor to SSL and is more secure and efficient.
 
 Here are its three main security works:
 
-Data Protection: It ensures that data transmitted is encrypted, preventing unauthorized interception and listening to private communications or gaining unauthorized access. Now, your sensitive information such as passwords, credit card numbers, and personal data won't be seen.
-
+Data Protection: It ensures that data transmitted is encrypted, preventing unauthorized interception and listening to private communications or gaining unauthorized access. Now, your sensitive information such as passwords, credit card numbers, and personal data won’t be seen.
 Identity Verification: This confirms the identity of websites, ensuring that users connect to the intended website, not a lookalike. This helps prevent man-in-the-middle attacks where an attacker could impersonate a website.
-
 Data Integrity: Since the data is encrypted, it ensures that data is not altered during transmission. If any tampering with the data occurs, it will be detected by the receiving party.
-
 Here is the detail of this communication process:
 
 Your browser initiates communication with the server.
 The server responds with its certificate and encryption details.
-Your browser verifies the server's certificate.
+Your browser verifies the server’s certificate.
 Both your browser and the server generate session keys.
 A secure connection is established, and all data transmitted between your browser and the server is encrypted using these session keys.
---------------------------------------------------------------------------------
+So far, you have been able to sort the IP address of Google, establish a connection, and communicate securely with the Google server. But one thing is missing: how many users does Google have? As of 2024, approximately 4.3 billion. Trust me, no single server can serve such an amount of users, not even half of them. You need many servers to do so.
 
+So how does Google handle about 99,000 search queries every second it gets from its users? And how does it manage to return your details (e.g., Google mails) each time you log in? If you can give me a few more minutes, I will do justice to that. The answer to the initial question is a load balancer.
 
-so far you have been able to sort the ip address of google, establised a connection and comunicate securly to the google server. but one thing is missing, how may users does ggole have? As of 2024, approximately 4.3 billion  trust me no single server csn be albe to server such amoung of use users not even half of them you need many severs to do so.
-so how does gooogl handle about [99,000 search queries every second](https://wpdevshed.com/how-many-people-use-google/) it gieting from tit uses?
-and how does it manage to return back you detailes (eg googl mails) each time you login?
-if you can give me few more mines i will do justice to that, the answer to the initial question i load balancer.
+Load Balancer
 
-Load-balancer
-A load balancer is a device or software that distributes incoming network request traffic across multiple servers.
- the primary purpose of load balancers is to ensure no single server becomes overwhelmed by too much traffic, this helps improve the responsiveness and availability of applications.
+A load balancer is a device or software that distributes incoming network request traffic across multiple servers. The primary purpose of load balancers is to ensure no single server becomes overwhelmed by too much traffic. This helps improve the responsiveness and availability of applications.
 
 Traffic Distribution:
 
-The load balancer receives incoming traffic and distributes it across multiple servers based on a specified algorithm(chosen method of distribution). Common algorithms include round-robin(distributed evenly across all servers), least connections(directed to the server with the fewest active), and IP hash( directed based on the client's IP address).
+The load balancer receives incoming traffic and distributes it across multiple servers based on a specified algorithm (chosen method of distribution). Common algorithms include round-robin (distributed evenly across all servers), least connections (directed to the server with the fewest active connections), and IP hash (directed based on the client’s IP address).
 
+The load balancer also performs health checks on the backend servers to ensure they are operational. If a server fails a health check, it is temporarily removed until it recovers.
 
-The load balancer also performs health checks on the backend servers to ensure they are operational. If a server fails on health check, it is temporarily removed until it recovers.
+With load balancing, we can trust that Google’s server won’t fail. Now let’s assume we have finally been directed to one of these servers. What happens next?
 
-with load balancing we can trust that google server wont fail, and now let assume we have finall been directed to one of this servers, what happens next?
+Server
 
-server
+The web server is a system (software or hardware) that serves web pages to clients (you) over HTTP or HTTPS. The main purpose is to host websites and deliver content to users’ browsers. So it is the web server that serves the page that loads before you. It serves static content. But what if there is a need to log in or perform some authentication? There comes the application server.
 
-the web server is a system (software or hardware) that serves web pages to clients(you) over HTTP or HTTPS.the  main purpose is to host websites and deliver content to users’ browsers. so it is the web server that server the page that loads before you it sever static contect. but what is there is a need to loging or to perform some login or authantication? there come the application server.
+Application Server
 
-the "application server" this server receives requests from the web server (such as when you are serching for something online), processes business logic, interacts with databases, and generates responses. it main focuse is to Executes the functionalities of the application, such functionalities as user authentication, transaction processing, and data validation. and if there is need to save or retrve the use data, threre comme the database. 
+This server receives requests from the web server (such as when you are searching for something online), processes business logic, interacts with databases, and generates responses. Its main focus is to execute the functionalities of the application, such as user authentication, transaction processing, and data validation. And if there is a need to save or retrieve user data, there comes the database.
 
-the "database" is an organized collection of information or data, often stored electronically in a computer system. It stores and retrieves data used by applications, ensuring that data is consistency, integrity, and security.
+Database
 
-with the data gotten from database by application serve, does any nessary computation passed on to the web server 
-herre you go gooogl.com webpage before.
-still rembere the process
-dns help in getting the ip address from url
+A database is an organized collection of information or data, often stored electronically in a computer system. It stores and retrieves data used by applications, ensuring consistency, integrity, and security.
+
+With the data obtained from the database by the application server, any necessary computation is passed on to the web server. Here you go google.com webpage before you.
+
+Still, remember the process:
+
+DNS helps in getting the IP address from the URL.
 Firewall: Ensures secure traffic flow by monitoring and controlling incoming and outgoing network traffic.
 HTTPS/SSL: Encrypts the data exchanged between your browser and Google’s server.
-Load-balancer: Distributes your request to one of many available servers to handle the load efficiently.
+Load Balancer: Distributes your request to one of many available servers to handle the load efficiently.
 Web Server: Handles your request and serves the static content of the Google homepage.
 Application Server: Processes any dynamic requests, such as search queries, by executing business logic.
 Database: Stores and retrieves the data needed to fulfill your request, such as search results.
-
-i know what you are thinging computerdoes that in those few millisconds? yess you are right is computer it good with numbers
+I know what you are thinking: computers do all that in those few milliseconds? Yes, you are right. Computers are good with numbers.
