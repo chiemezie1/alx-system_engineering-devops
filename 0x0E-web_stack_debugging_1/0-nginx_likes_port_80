@@ -1,4 +1,28 @@
 #!/usr/bin/env bash
-# configures /etc/nginx/sites-enabled/default file from 8080 to 80:
-sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
+# Setting up server to ensure Nginx is running and listening on port 80
+
+# Update the package list and install nginx if not already installed
+apt-get update
+apt-get -y install nginx
+
+# Remove default site configuration (if any)
+rm -f /etc/nginx/sites-available/default
+rm -f /etc/nginx/sites-enabled/default
+
+# Create a new configuration file for the default site to listen on port 80
+cat <<EOL > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOL
+
+# Enable the configuration by linking to sites-enabled
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Restart Nginx to apply the changes
 service nginx restart
