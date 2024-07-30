@@ -1,8 +1,42 @@
-#!/bin/bash
-# A Bash script that will display information about subdomains
-if [ $# -eq 1 ]; then
-	queries="www.$1 lb-01.$1 web-01.$1 web-02.$1"
-else
-	queries="$2.$1"
+#!/usr/bin/env bash
+# Script to display information about subdomains
+
+# Function to get subdomain information
+get_subdomain_info() {
+    local domain=$1
+    local subdomain=$2
+    local full_domain="${subdomain}.${domain}"
+    
+    # Query the DNS record
+    local result=$(dig "${full_domain}" +short)
+    if [[ -z "$result" ]]; then
+        echo "No record found for ${full_domain}"
+        return
+    fi
+
+    # Get the record type
+    local record_type=$(dig "${full_domain}" | awk '/IN/ {print $4; exit}')
+    
+    # Print the result
+    echo "The subdomain ${subdomain} is a ${record_type} record and points to ${result}"
+}
+
+# Main script
+domain=$1
+subdomain=$2
+
+# Check if domain is provided
+if [[ -z "$domain" ]]; then
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
 fi
-dig $queries | awk '/ANSWER SECTION:/ { getline; split($1, a, "."); print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
+
+# If a specific subdomain is provided, display its info
+if [[ -n "$subdomain" ]]; then
+    get_subdomain_info "$domain" "$subdomain"
+else
+    # Display info for default subdomains
+    for sub in www lb-01 web-01 web-02; do
+        get_subdomain_info "$domain" "$sub"
+    done
+fi
