@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Starts nginx as user nginx on port 8080
+service apache2 stop
+sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-enabled/default
+# Restart Nginx to apply changes
+service nginx restart
