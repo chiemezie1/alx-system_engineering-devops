@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Check if the password argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <mysql_root_password>"
+  exit 1
+fi
+
+# MySQL root password
+MYSQL_ROOT_PASSWORD="$1"
+
+# Generate the MySQL dump
+mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --all-databases > backup.sql
+
+# Check if the dump was successful
+if [ $? -ne 0 ]; then
+  echo "MySQL dump failed!"
+  exit 1
+fi
+
+# Get the current date
+CURRENT_DATE=$(date +"%d-%m-%Y")
+
+# Compress the dump file into a tar.gz archive
+tar -czf "$CURRENT_DATE.tar.gz" backup.sql
+
+# Check if the compression was successful
+if [ $? -ne 0 ]; then
+  echo "Compression failed!"
+  exit 1
+fi
+
+# Remove the original dump file to save space
+rm backup.sql
+
+echo "Backup and compression completed successfully. Archive created: $CURRENT_DATE.tar.gz"
