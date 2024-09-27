@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Update package list and install Nginx
+sudo apt update
+sudo apt install -y nginx
+
+# Add custom header configuration to the default server block
+sed -i "/server_name _;/ a\\\tadd_header X-Served-By \"\$HOSTNAME\";" /etc/nginx/sites-available/default
+service nginx restart

@@ -1,0 +1,29 @@
+# Commands to configure ufw firewall
+
+# Install ufw if not already installed
+sudo apt update
+sudo apt install ufw
+
+# Reset any existing rules
+sudo ufw reset
+
+# Set default policy to deny all incoming traffic
+sudo ufw default deny incoming
+
+# Set default policy to deny all outgoing traffic
+sudo ufw default allow outgoing
+
+# Allow incoming traffic on SSH (port 22)
+sudo ufw allow 22/tcp
+
+# Allow incoming traffic on HTTPS (port 443)
+sudo ufw allow 443/tcp
+
+# Allow incoming traffic on HTTP (port 80)
+sudo ufw allow 80/tcp
+
+# Enable the firewall
+sudo ufw enable
+
+# Check the status to ensure rules are applied
+sudo ufw status
